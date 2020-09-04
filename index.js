@@ -26,7 +26,3 @@ const mongoConnect =()=>{
 
 mongoConnect();
 
-
-
-git config --global user.email "britoperes@icloud.com"
-git config --global user.name "João Pedro Brito Peres"
