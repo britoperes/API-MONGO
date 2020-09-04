@@ -12,10 +12,13 @@ const createUser= (req, res)=>{
 }
 
 const getUser = (req,res)=>{
-    User.find(data=>{
+  /*   User.find(data=>{
         res.status(200).send({data})
     }).catch(error=>{
         res.status(400).send({error})
+    }) */
+    User.find({}).then(data=>{
+        console.log({data})
     })
 }
 
