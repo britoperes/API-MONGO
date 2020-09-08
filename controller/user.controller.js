@@ -18,11 +18,67 @@ const getUser = (req,res)=>{
         res.status(400).send({error})
     }) */
     User.find({}).then(data=>{
-        console.log({data})
+        res.status(200).send({data})
+    }).catch(erro=>{
+        res.status(400).send(`Erro - ${erro}`)
     })
 }
 
+const getUserById = (req,res)=>{
+    let id = {_id: req.params.id}
+    User.findById(id, (erro,data)=>{
+        if(erro){
+            console.log(erro)
+            return
+        }
+        console.log(data)
+        return
+    })
+
+}
+
+const putUser = (req, res)=>{
+    let filter = {_id: req.params.id}
+    let update = {
+        email:"", password:""
+    } // Nao deixar inserir NULO
+    update = {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    User.findOneAndUpdate(filter, update, {new:true}, (err,result)=>{
+        if(err){
+            res.status(400).send(`Error on findOneAndUpdate() - ${err}`)
+            return
+        }
+        res.status(200).send(result)
+        return
+    })
+
+}
+
+const deleteUser = (req,res)=>{
+    let id = {_id:req.params.id}
+    User.findOneAndDelete(id, (err,response)=>{
+        if(err){
+            res.status(400).send(`Error in delete - ${err}`)
+            return
+        }
+        res.status(200).send({response})
+    })
+}
+
+// const putUser = (req,res)=>{
+//     let id = req.params.id
+//     User.
+// }
+
 module.exports={
     createUser:createUser,
-    getUser:getUser
+    getUser:getUser,
+    getUserById:getUserById,
+    putUser:putUser,
+    deleteUser:deleteUser
+    // putUser:putUser
 }
